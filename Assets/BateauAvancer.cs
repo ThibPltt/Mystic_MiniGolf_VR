@@ -2,16 +2,20 @@
 
 public class BoatMovement : MonoBehaviour
 {
-    public float speed = 0.1f; // Vitesse du bateau
+    public float speed = 1f; // Vitesse du bateau
     public float targetDistance = 20f; // Distance cible à parcourir
     public float waterLevel = -5f; // Niveau de l'eau
     public float floatHeight = 2f; // Hauteur de flottabilité
     public float bounceDamp = 0.05f; // Amortissement de la flottabilité
     public float buoyancyForce = 5f; // Force de flottabilité
+    public Transform anchorPoint; // Point d'ancrage pour le personnage
 
     private Vector3 startPosition;
     private Rigidbody rb;
     private bool isCharacterOnBoard = false;
+    private Transform characterTransform; // Référence au transform du personnage
+    private Rigidbody characterRb; // Référence au Rigidbody du personnage
+    private Collider characterCollider; // Référence au Collider du personnage
 
     void Start()
     {
@@ -76,6 +80,19 @@ public class BoatMovement : MonoBehaviour
         {
             Debug.Log("Player est monté sur le bateau");
             isCharacterOnBoard = true;
+            characterTransform = other.transform; // Stockez le transform du personnage
+            characterRb = other.GetComponent<Rigidbody>(); // Obtenez le Rigidbody du personnage
+            characterCollider = other.GetComponent<Collider>(); // Obtenez le Collider du personnage
+            if (characterRb != null)
+            {
+                characterRb.isKinematic = true; // Désactivez le Rigidbody du personnage
+            }
+            if (characterCollider != null)
+            {
+                characterCollider.enabled = false; // Désactivez le Collider du personnage
+            }
+            characterTransform.position = anchorPoint.position; // Déplacez le personnage vers le point d'ancrage
+            characterTransform.SetParent(anchorPoint); // Définissez le parent du personnage comme étant le point d'ancrage
         }
     }
 
@@ -85,6 +102,18 @@ public class BoatMovement : MonoBehaviour
         {
             Debug.Log("Player est descendu du bateau");
             isCharacterOnBoard = false;
+            characterTransform.SetParent(null); // Réinitialisez le parent du personnage
+            if (characterRb != null)
+            {
+                characterRb.isKinematic = false; // Réactivez le Rigidbody du personnage
+                characterRb = null; // Réinitialisez la référence au Rigidbody du personnage
+            }
+            if (characterCollider != null)
+            {
+                characterCollider.enabled = true; // Réactivez le Collider du personnage
+                characterCollider = null; // Réinitialisez la référence au Collider du personnage
+            }
+            characterTransform = null; // Réinitialisez la référence au transform du personnage
         }
     }
 }
