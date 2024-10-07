@@ -880,8 +880,8 @@ PlayerSettings:
   apiCompatibilityLevelPerPlatform: {}
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
-  metroPackageName: Mystic_MiniGolf
-  metroPackageVersion: 
+  metroPackageName: MysticMiniGolf
+  metroPackageVersion: 1.0.0.0
   metroCertificatePath: 
   metroCertificatePassword: 
   metroCertificateSubject: 
@@ -889,7 +889,7 @@ PlayerSettings:
   metroCertificateNotAfter: 0000000000000000
   metroApplicationDescription: Mystic_MiniGolf
   wsaImages: {}
-  metroTileShortName: 
+  metroTileShortName: Mystic_MiniGolf
   metroTileShowName: 0
   metroMediumTileShowName: 0
   metroLargeTileShowName: 0
