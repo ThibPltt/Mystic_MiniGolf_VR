@@ -106,7 +106,7 @@ public class BoatMovement : MonoBehaviour
         if (other.CompareTag("MainCamera"))
         {
             Debug.LogWarning(other.transform.parent.parent.parent.name + " est monté sur le bateau");
-            isCharacterOnBoard = false;
+            isCharacterOnBoard = true;
             characterTransform.SetParent(null); // Réinitialisez le parent du personnage
             if (characterRb != null)
             {
