@@ -279,6 +279,12 @@ namespace UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets
 
         void OnRaySelectEntered(SelectEnterEventArgs args)
         {
+            // Mystic MiniGolf : on ne coupe le deplacement et la rotation que si le joystick
+            // sert a manipuler l'objet tenu (Allow Anchor Control coche sur le Ray Interactor).
+            // Sinon, on garde le deplacement (stick gauche) et la rotation (stick droit) en tenant le club.
+            if (m_RayInteractor != null && !m_RayInteractor.allowAnchorControl)
+                return;
+
             // Disable locomotion and turn actions
             DisableLocomotionActions();
         }
