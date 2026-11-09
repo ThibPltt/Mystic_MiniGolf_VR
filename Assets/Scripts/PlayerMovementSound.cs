@@ -1,55 +1,63 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
+// Joue le son de pas quand le joueur se déplace avec le joystick.
+// On mesure la vitesse du CORPS (CharacterController du XR Origin), pas celle de la tête :
+// regarder autour de soi, se pencher ou tourner avec le joystick droit ne déclenche plus le son.
+[RequireComponent(typeof(AudioSource))]
 public class PlayerMovementSound : MonoBehaviour
 {
-    private Vector3 previousPosition;
+    [Tooltip("Corps du joueur (trouvé automatiquement dans les parents si vide)")]
+    [SerializeField] private CharacterController corps;
+
+    [Tooltip("Vitesse à plat (m/s) à partir de laquelle on joue le son de pas")]
+    [SerializeField] private float vitesseMin = 0.3f;
+
+    [Tooltip("Temps (s) sans mouvement avant de couper le son (évite les coupures)")]
+    [SerializeField] private float delaiArret = 0.15f;
+
     private AudioSource audioSource;
+    private float dernierMouvement = -10f;
+    private Vector3 positionPrecedente;
 
-    // Start est appelé avant la première mise à jour de la frame
-    void Start()
+    private void Awake()
     {
-        // On stocke la position initiale du joueur
-        previousPosition = transform.position;
-
-        // On récupère le composant AudioSource
         audioSource = GetComponent<AudioSource>();
+        audioSource.playOnAwake = false;
+        audioSource.loop = true;
 
-        if (audioSource == null)
-        {
-            Debug.LogError("Le composant AudioSource est manquant");
-        }
+        if (corps == null)
+            corps = GetComponentInParent<CharacterController>();
     }
 
-    // Update est appelé une fois par frame
-    void Update()
+    private void Start()
     {
-        // Vérifie si la position du joueur a changé (le joueur a bougé)
-        float distance = Vector3.Distance(transform.position, previousPosition);
-        Debug.Log("Distance: " + distance);
+        audioSource.Stop();
+        positionPrecedente = transform.position;
+    }
 
-        if (distance > 0.01f)
+    private void Update()
+    {
+        Vector3 vitesse;
+        if (corps != null)
         {
-            // Si le joueur bouge et que le son n'est pas en train de jouer, on le joue
-            if (!audioSource.isPlaying)
-            {
-                Debug.Log("Le joueur bouge, on joue le son");
-                audioSource.Play();
-            }
+            vitesse = corps.velocity;
         }
         else
         {
-            // Si le joueur ne bouge pas, on arrête le son
-            if (audioSource.isPlaying)
-            {
-                Debug.Log("Le joueur ne bouge pas, on arrête le son");
-                audioSource.Stop();
-            }
+            // Secours : vitesse de cet objet
+            vitesse = Time.deltaTime > 0f ? (transform.position - positionPrecedente) / Time.deltaTime : Vector3.zero;
+            positionPrecedente = transform.position;
         }
+        vitesse.y = 0f;
 
-        // Met à jour la position précédente
-        previousPosition = transform.position;
+        if (vitesse.magnitude > vitesseMin)
+            dernierMouvement = Time.time;
+
+        bool bouge = Time.time - dernierMouvement < delaiArret;
+
+        if (bouge && !audioSource.isPlaying)
+            audioSource.Play();
+        else if (!bouge && audioSource.isPlaying)
+            audioSource.Stop();
     }
 }

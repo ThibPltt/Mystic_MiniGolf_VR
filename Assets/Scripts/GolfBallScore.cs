@@ -6,17 +6,26 @@ public class GolfBallScore : MonoBehaviour
 
     void Start()
     {
-        // Trouver le script Score dans la scène
-        scoreScript = FindObjectOfType<Score>();
+        TrouverScore();
     }
 
     void OnCollisionEnter(Collision collision)
     {
-        // Vérifier si la collision est avec le club de golf
+        // VÃ©rifier si la collision est avec le club de golf
         if (collision.gameObject.CompareTag("GolfClub"))
         {
-            // Appeler la méthode OnBallHit du script Score
-            scoreScript.OnBallHit();
+            if (scoreScript == null)
+                TrouverScore();
+
+            if (scoreScript != null)
+                scoreScript.OnBallHit();
         }
+    }
+
+    private void TrouverScore()
+    {
+        // includeInactive = true : le compteur (Count) est masquÃ© au dÃ©marrage,
+        // il faut quand mÃªme le trouver.
+        scoreScript = FindObjectOfType<Score>(true);
     }
 }

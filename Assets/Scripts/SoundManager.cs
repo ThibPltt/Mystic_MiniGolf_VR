@@ -1,41 +1,36 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class SoundManager : MonoBehaviour
 {
-    // Référence au slider de volume dans l'interface utilisateur
+    // RÃ©fÃ©rence au slider de volume dans l'interface utilisateur
     [SerializeField] private Slider volumeSlider;
 
-    void Start()
+    // Awake (et non Start) : l'Ã©cran de jeu est masquÃ© dÃ¨s le lancement,
+    // le volume enregistrÃ© doit quand mÃªme Ãªtre appliquÃ© tout de suite.
+    void Awake()
     {
-        // Vérifiez si la clé "musicVolume" existe dans les PlayerPrefs
         if (!PlayerPrefs.HasKey("musicVolume"))
-        {
-            // Si la clé n'existe pas, définissez le volume de la musique par défaut à 1
             PlayerPrefs.SetFloat("musicVolume", 1);
-            Load();
-        }
-        else
-        {
-            // Si la clé existe, chargez le volume enregistré
-            Load();
-        }
+
+        Load();
     }
 
-    // Appelé lorsque le slider de volume est modifié
+    // AppelÃ© lorsque le slider de volume est modifiÃ©
     public void ChangeVolume()
     {
-        // Mettre à jour le volume global de l'audio en fonction de la valeur du slider
+        // Mettre Ã  jour le volume global de l'audio en fonction de la valeur du slider
         AudioListener.volume = volumeSlider.value;
         Save();
     }
 
-    // Charger le volume depuis les PlayerPrefs et définir la valeur du slider
+    // Charger le volume depuis les PlayerPrefs, l'appliquer et mettre Ã  jour le slider
     private void Load()
     {
-        volumeSlider.value = PlayerPrefs.GetFloat("musicVolume");
+        float volume = PlayerPrefs.GetFloat("musicVolume");
+        AudioListener.volume = volume;
+        if (volumeSlider != null)
+            volumeSlider.value = volume;
     }
 
     // Enregistrer la valeur actuelle du slider dans les PlayerPrefs
