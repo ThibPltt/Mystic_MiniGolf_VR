@@ -10,7 +10,7 @@ VR minigolf on an island of ancient temples, built as a pair.
 |---|---|
 | **Dates** | 2024 – 2025 |
 | **Context** | virtual reality · built as a pair · ENSIM |
-| **Technologies** | VR · Unity · C# · Blender |
+| **Technologies** | VR · Unity · C# · XR Interaction Toolkit · Blender |
 | **Play it** | [v1.0 Windows build for PC VR](https://github.com/ThibPltt/Mystic_MiniGolf_VR/releases/latest) |
 | **Case study** | [thibautplatet.com/en/projects/mystic-minigolf.html](https://thibautplatet.com/en/projects/mystic-minigolf.html) |
 | **Report** | [Rapport Final Mystic MiniGolf.pdf](Rapport%20Final%20Mystic%20MiniGolf.pdf) (in French) |
