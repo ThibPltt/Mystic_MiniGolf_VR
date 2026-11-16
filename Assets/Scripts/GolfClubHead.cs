@@ -3,8 +3,8 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 // À mettre sur chaque club (à côté de XR Grab Interactable et GolfClubGrip).
 //
-// Seule la TÊTE du club frappe la balle : sa forme est une boîte (cadre cyan dans la
-// Scene view quand le club est sélectionné). À chaque image, on balaie la boîte entre
+// Seule la TÊTE du club frappe la balle : sa forme est une boîte orientée, ajustée sur la
+// vraie tête du modèle (cadre cyan dans la Scene view quand le club est sélectionné). À chaque image, on balaie la boîte entre
 // sa position précédente et sa position actuelle, donc même un coup rapide ne
 // "traverse" pas la balle.
 //
@@ -13,9 +13,21 @@ using UnityEngine.XR.Interaction.Toolkit;
 [RequireComponent(typeof(XRGrabInteractable))]
 public class GolfClubHead : MonoBehaviour
 {
-    [Header("Tête du club (repère local du modèle)")]
-    [SerializeField] private Vector3 centreTete = new Vector3(-0.07f, 0f, -10.1f);
-    [SerializeField] private Vector3 tailleTete = new Vector3(2.3f, 1.4f, 2.2f);
+    [Header("Tête du club : boîte orientée ajustée sur le modèle")]
+    [Tooltip("Centre de la tête, en coordonnées locales du modèle du club")]
+    [SerializeField] private Vector3 centreTeteLocal = new Vector3(-0.067f, 0.155f, -10.101f);
+
+    [Tooltip("Orientation de la boîte par rapport au club (degrés). La tête est en biais sur le manche.")]
+    [SerializeField] private Vector3 rotationTete = new Vector3(40.7f, 0f, 27.41f);
+
+    [Tooltip("Taille réelle de la tête en mètres : longueur (talon-pointe), épaisseur, hauteur")]
+    [SerializeField] private Vector3 tailleTeteMetres = new Vector3(0.396f, 0.072f, 0.21f);
+
+    [Tooltip("Marge de contact (m). Négatif = la tête doit rentrer un peu dans la balle pour la toucher.")]
+    [SerializeField] private float margeContact = 0f;
+
+    [Tooltip("Affiche dans la Console chaque frappe faite par la tête (distance réelle tête-balle)")]
+    [SerializeField] private bool debugFrappes = false;
 
     [Header("Frappe")]
     [Tooltip("Vitesse de la balle / vitesse de la tête. ≈ 1,6 pour un vrai putter.")]
@@ -113,8 +125,8 @@ public class GolfClubHead : MonoBehaviour
             return;
         }
 
-        Vector3 centre = transform.TransformPoint(centreTete);
-        Quaternion rotation = transform.rotation;
+        Vector3 centre = CentreTete();
+        Quaternion rotation = RotationTete();
         Vector3 demiTaille = DemiTaille();
 
         positions[indexEchantillon] = centre;
@@ -170,6 +182,7 @@ public class GolfClubHead : MonoBehaviour
             Mathf.Clamp(local.y, -demiTaille.y, demiTaille.y),
             Mathf.Clamp(local.z, -demiTaille.z, demiTaille.z));
         Vector3 normale = posBalle - (centre + rotation * plusProche);
+        float distanceTeteCentreBalle = normale.magnitude; // 0 si le centre de la balle est dans la tête
         normale.y = 0f;
         if (normale.sqrMagnitude < 0.000001f)
             normale = new Vector3(vitesseTete.x, 0f, vitesseTete.z);
@@ -195,6 +208,11 @@ public class GolfClubHead : MonoBehaviour
 
         bool nouveauCoup = balle.Frapper(v);
 
+        if (debugFrappes)
+            Debug.Log("[Club " + name + "] Frappe par la TÊTE : " + balle.name +
+                      " | distance tête → centre de la balle = " + distanceTeteCentreBalle.ToString("F3") +
+                      " m (≈ rayon de la balle si contact normal) | vitesse balle = " + v.magnitude.ToString("F2") + " m/s");
+
         float vitesseTeteAPlat = new Vector3(vitesseTete.x, 0f, vitesseTete.z).magnitude;
         if (nouveauCoup && vitesseTeteAPlat >= vitesseMinCoup)
         {
@@ -219,10 +237,20 @@ public class GolfClubHead : MonoBehaviour
         return dt > 0.0001f ? (positions[dernier] - positions[premier]) / dt : Vector3.zero;
     }
 
+    private Vector3 CentreTete()
+    {
+        return transform.TransformPoint(centreTeteLocal);
+    }
+
+    private Quaternion RotationTete()
+    {
+        return transform.rotation * Quaternion.Euler(rotationTete);
+    }
+
     private Vector3 DemiTaille()
     {
-        Vector3 s = transform.lossyScale;
-        return new Vector3(Mathf.Abs(tailleTete.x * s.x), Mathf.Abs(tailleTete.y * s.y), Mathf.Abs(tailleTete.z * s.z)) * 0.5f;
+        Vector3 demi = tailleTeteMetres * 0.5f + Vector3.one * margeContact;
+        return Vector3.Max(demi, Vector3.one * 0.001f);
     }
 
     private void Vibrer(float amplitude)
@@ -237,7 +265,7 @@ public class GolfClubHead : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.cyan;
-        Gizmos.matrix = Matrix4x4.TRS(transform.TransformPoint(centreTete), transform.rotation, Vector3.one);
+        Gizmos.matrix = Matrix4x4.TRS(CentreTete(), RotationTete(), Vector3.one);
         Gizmos.DrawWireCube(Vector3.zero, DemiTaille() * 2f);
         Gizmos.matrix = Matrix4x4.identity;
     }

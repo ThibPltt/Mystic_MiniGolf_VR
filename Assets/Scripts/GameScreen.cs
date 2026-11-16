@@ -1,5 +1,7 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit;
 
 // Affiche / masque l'écran de jeu (GameScreen) et le compteur (Count)
@@ -19,8 +21,8 @@ public class GameScreen : MonoBehaviour
     [Tooltip("Les écrans sont-ils visibles au lancement de la scène ?")]
     public bool visibleAuDemarrage = false;
 
-    [Tooltip("Ray Interactor de la main droite (optionnel). S'il pointe sur de l'UI, " +
-             "la gâchette clique sur l'UI au lieu de fermer l'écran. Trouvé automatiquement si vide.")]
+    [Tooltip("Ray Interactor de la main droite (optionnel). S'il vise un bouton ou un slider, " +
+             "la gâchette l'utilise au lieu de fermer l'écran. Trouvé automatiquement si vide.")]
     public XRRayInteractor rayDroit;
 
     private InputAction toggleAction;
@@ -45,12 +47,25 @@ public class GameScreen : MonoBehaviour
 
     private void OnToggle(InputAction.CallbackContext ctx)
     {
-        // Si l'écran est ouvert et que le rayon droit vise un bouton / slider,
-        // on laisse la gâchette servir à cliquer dessus.
-        if (visible && rayDroit != null && rayDroit.isActiveAndEnabled && rayDroit.IsOverUIGameObject())
+        // Si l'écran est ouvert et que le rayon droit vise un élément cliquable
+        // (slider, bouton…), la gâchette sert à l'utiliser au lieu de fermer l'écran.
+        // Viser le fond du panneau ne bloque plus la fermeture.
+        if (visible && RayOnInteractableUI())
             return;
 
         SetVisible(!visible);
+    }
+
+    private bool RayOnInteractableUI()
+    {
+        if (rayDroit == null || !rayDroit.isActiveAndEnabled)
+            return false;
+
+        if (!rayDroit.TryGetCurrentUIRaycastResult(out RaycastResult result) || result.gameObject == null)
+            return false;
+
+        Selectable selectable = result.gameObject.GetComponentInParent<Selectable>();
+        return selectable != null && selectable.IsInteractable();
     }
 
     private void SetVisible(bool v)
