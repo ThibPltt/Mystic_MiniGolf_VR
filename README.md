@@ -11,7 +11,7 @@ VR minigolf on an island of ancient temples, built as a pair.
 | **Dates** | 2024 – 2025 |
 | **Context** | virtual reality · built as a pair · ENSIM |
 | **Technologies** | VR · Unity · C# · XR Interaction Toolkit · Blender |
-| **Play it** | [v2.0 Windows build for PC VR](https://github.com/ThibPltt/Mystic_MiniGolf_VR/releases/latest) |
+| **Play it** | [v2.0 for PC VR (Windows) and Meta Quest (APK)](https://github.com/ThibPltt/Mystic_MiniGolf_VR/releases/latest) |
 | **Case study** | [thibautplatet.com/en/projects/mystic-minigolf.html](https://thibautplatet.com/en/projects/mystic-minigolf.html) |
 
 ## Problem
@@ -92,8 +92,10 @@ The game opens on a floating menu, operated with the trigger.
 
 ## Run it
 
-- **Play:** download `Build_VR_Mystic_Minigolf.zip` from the [latest release](https://github.com/ThibPltt/Mystic_MiniGolf_VR/releases/latest), unzip it, connect your headset to the PC (e.g. Meta Quest with Link) and run `Mystic_MiniGolf.exe`.
-- **From the source:** open the project with Unity **2022.3.37f1** (XR Interaction Toolkit 2.5, OpenXR, Oculus XR plugin, XR Hands), open `Assets/Scenes/MainMenu.unity` and press **Play** with the headset connected. The scripts are in `Assets/Scripts/` (`GolfBallPhysics.cs`, `GolfClubGrip.cs`, `GolfClubHead.cs`, `GolfBallScore.cs`, `MenuController.cs`, `SoundManager.cs`…).
+- **PC VR:** download `Build_VR_Mystic_Minigolf.zip` from the [latest release](https://github.com/ThibPltt/Mystic_MiniGolf_VR/releases/latest), unzip it, connect your headset to the PC (e.g. Meta Quest with Link) and run `Mystic_MiniGolf.exe`.
+- **Meta Quest (standalone):** download `Mystic_Minigolf.apk` from the same release and install it with Meta Quest Developer Hub or `adb install -r Mystic_Minigolf.apk` (developer mode enabled). The game then appears in *Library › Unknown sources*.
+- **From the source:** open the project with Unity **2022.3.62f3** (XR Interaction Toolkit 2.5, OpenXR, Oculus XR plugin, XR Hands), open `Assets/Scenes/MainMenu.unity` and press **Play** with the headset connected. For the Quest build, switch the platform to Android: OpenXR runs with *Meta Quest Support* on the Android tab. The scripts are in `Assets/Scripts/` (`GolfBallPhysics.cs`, `GolfClubGrip.cs`, `GolfClubHead.cs`, `GolfBallScore.cs`, `MenuController.cs`, `SoundManager.cs`…).
+- **Unity version:** the project was developed with 2022.3.37f1 and moved to 2022.3.62f3 for v2.0, a version that includes Unity’s October 2025 security fix.
 
 ## Credits
 
