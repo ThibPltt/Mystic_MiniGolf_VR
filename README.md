@@ -12,6 +12,7 @@ VR minigolf on an island of ancient temples, built as a pair.
 | **Context** | virtual reality · built as a pair · ENSIM |
 | **Technologies** | VR · Unity · C# · XR Interaction Toolkit · Blender |
 | **Play it** | [v2.0 for PC VR (Windows) and Meta Quest (APK)](https://github.com/ThibPltt/Mystic_MiniGolf_VR/releases/latest) |
+| **Video** | [Gameplay video on YouTube](https://www.youtube.com/watch?v=N9Fd4-CqHVY) |
 | **Case study** | [thibautplatet.com/en/projects/mystic-minigolf.html](https://thibautplatet.com/en/projects/mystic-minigolf.html) |
 
 ## Problem
@@ -124,4 +125,13 @@ The packages below are **not included** in this repository and are not covered b
 | `Assets/Yoge` | Stylized nature terrain layers — Yoge | Unity Asset Store | Asset Store EULA |
 | `Assets/MobileWaterShader_EKV` | Mobile Water Shader — EKV | Unity Asset Store | Asset Store EULA |
 | `Assets/Vision of Adventure` | Vision of Adventure (chiptune music, Kenney Jam 2023) | itch.io / Construct | author’s licence |
-| `Assets/TextMesh Pro`<br>`Assets/Samples` | TextMesh Pro, XR Interaction Toolkit samples — Unity | Unity packages | Unity Companion Licence |
+
+Included in the repository under their own licences:
+
+- `Assets/TextMesh Pro`, `Assets/Samples`: TextMesh Pro and the XR Interaction Toolkit samples, Unity packages under the Unity Companion Licence.
+
+<details>
+<summary>🇫🇷 En bref</summary>
+
+Minigolf en réalité virtuelle sur une île aux temples anciens, réalisé en binôme à l’ENSIM (2024 – 2025, Unity, C#). Une île entourée par la mer, où une mascotte accueille le joueur et lui montre les gestes. Version 2.0 jouable sur PC VR et sur Meta Quest, dans les [Releases](https://github.com/ThibPltt/Mystic_MiniGolf_VR/releases/latest). Fiche complète sur [thibautplatet.com](https://thibautplatet.com/projets/mystic-minigolf.html).
+</details>
