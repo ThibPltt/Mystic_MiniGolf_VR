@@ -73,3 +73,31 @@ crashlytics-build.properties
 Build_SIMULATOR/
   /Build_*/
   /Build_*.zip
+
+# Third-party packages (Unity Asset Store and others): not redistributed, see the README
+/Assets/TemplesKor/
+/Assets/TemplesKor.meta
+/Assets/Aligned Games/
+/Assets/Aligned Games.meta
+/Assets/Asian Style Trees/
+/Assets/Asian Style Trees.meta
+/Assets/Footsteps - Essentials/
+/Assets/Footsteps - Essentials.meta
+/Assets/Fantasy Skybox FREE/
+/Assets/Fantasy Skybox FREE.meta
+/Assets/Yoge/
+/Assets/Yoge.meta
+/Assets/Wood products/
+/Assets/Wood products.meta
+/Assets/MaximeBrunoni/
+/Assets/MaximeBrunoni.meta
+/Assets/MobileWaterShader_EKV/
+/Assets/MobileWaterShader_EKV.meta
+/Assets/Used Golf Club/
+/Assets/Used Golf Club.meta
+/Assets/Saritasa/
+/Assets/Saritasa.meta
+/Assets/WhatSoundsNice/
+/Assets/WhatSoundsNice.meta
+/Assets/Vision of Adventure/
+/Assets/Vision of Adventure.meta

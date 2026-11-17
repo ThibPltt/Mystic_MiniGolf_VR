@@ -107,7 +107,7 @@ The code and the original content of this repository (scripts, scenes, prefabs, 
 
 ### Third-party assets
 
-The packages below are **not** covered by the MIT licence: they stay under their publishers’ terms (mostly the [Unity Asset Store EULA](https://unity.com/legal/as-terms)). To reuse them in another project, get them from their store page; Unity keeps their GUIDs, so a re-import restores the references.
+The packages below are **not included** in this repository and are not covered by the MIT licence: they stay under their publishers’ terms (mostly the [Unity Asset Store EULA](https://unity.com/legal/as-terms)). To open the full project, get them from their store page and import them into the folder shown; Unity keeps their GUIDs, so the scenes find them again. The playable builds are in the [Releases](https://github.com/ThibPltt/Mystic_MiniGolf_VR/releases/latest).
 
 | Folder | Asset | Source | Licence |
 |---|---|---|---|
