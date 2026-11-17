@@ -98,3 +98,28 @@ The game opens on a floating menu, operated with the trigger.
 ## Credits
 
 Scenery, sounds and music come from the Unity Asset Store, including Korean temple models from the Korea Heritage Service and the *Stylized General Modular Mini Golf* package by Aligned Games; they keep their own licences.
+
+## Licence
+
+The code and the original content of this repository (scripts, scenes, prefabs, own models, textures and sounds) are released under the [MIT licence](LICENSE). Contributors keep the copyright on their own contributions.
+
+### Third-party assets
+
+The packages below are **not** covered by the MIT licence: they stay under their publishers’ terms (mostly the [Unity Asset Store EULA](https://unity.com/legal/as-terms)). To reuse them in another project, get them from their store page; Unity keeps their GUIDs, so a re-import restores the references.
+
+| Folder | Asset | Source | Licence |
+|---|---|---|---|
+| `Assets/TemplesKor` | [KHS – Korean temples](https://assetstore.unity.com/packages/slug/268804) — Korea Heritage Service | Unity Asset Store | Asset Store EULA (credit: Korea Heritage Service) |
+| `Assets/Fantasy Skybox FREE` | [Fantasy Skybox FREE](https://assetstore.unity.com/packages/slug/18353) | Unity Asset Store | Asset Store EULA |
+| `Assets/Aligned Games` | [Stylized General Modular Mini Golf Asset Package](https://assetstore.unity.com/packages/slug/168416) — Aligned Games | Unity Asset Store | Asset Store EULA |
+| `Assets/MaximeBrunoni` | [Bridges Pack](https://assetstore.unity.com/packages/slug/212950) — Maxime Brunoni | Unity Asset Store | Asset Store EULA |
+| `Assets/WhatSoundsNice` | [Adventure Music and SFX](https://assetstore.unity.com/packages/slug/221545) — WhatSoundsNice | Unity Asset Store | Asset Store EULA |
+| `Assets/Footsteps - Essentials` | [Footsteps - Essentials](https://assetstore.unity.com/packages/slug/189879) | Unity Asset Store | Asset Store EULA |
+| `Assets/Used Golf Club` | [Used Golf Club-Free](https://assetstore.unity.com/packages/slug/201581) — Alvarolopz98 | Unity Asset Store | Asset Store EULA |
+| `Assets/Saritasa` | [Free Sport Balls](https://assetstore.unity.com/packages/slug/293937) — Saritasa | Unity Asset Store | Asset Store EULA |
+| `Assets/Wood products` | Wood products | Unity Asset Store | Asset Store EULA |
+| `Assets/Asian Style Trees` | Asian Style Trees | Unity Asset Store | Asset Store EULA |
+| `Assets/Yoge` | Stylized nature terrain layers — Yoge | Unity Asset Store | Asset Store EULA |
+| `Assets/MobileWaterShader_EKV` | Mobile Water Shader — EKV | Unity Asset Store | Asset Store EULA |
+| `Assets/Vision of Adventure` | Vision of Adventure (chiptune music, Kenney Jam 2023) | itch.io / Construct | author’s licence |
+| `Assets/TextMesh Pro`<br>`Assets/Samples` | TextMesh Pro, XR Interaction Toolkit samples — Unity | Unity packages | Unity Companion Licence |
